@@ -1,6 +1,7 @@
 #импорт библиотек
 from pygame import *
 
+
 #Окно игры
 bg_col = (200, 255, 255)
 win_width = 600
