@@ -8,7 +8,7 @@ win_height = 500
 window = display.set_mode((win_width, win_height))
 window.fill(bg_col)
 
-#Состояние игры/игрока
+#Состояние игры
 run = True
 finish = False
 clock = time.Clock()
@@ -50,6 +50,7 @@ class Player(GameSprite):
 racket1 = Player(10, 200, 'racket.png', 4, 50, 150)
 racket2 = Player(540, 200, 'racket.png', 4, 50, 150)
 
+#
 speed_x = 3
 speed_y = 3
 
