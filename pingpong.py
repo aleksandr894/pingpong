@@ -80,8 +80,10 @@ while run:
                 rand_racket.rect.y = -200
                 rand_racket.speed = False
         if ball.rect.y >= 450:
+            ball.rect.y = 440
             speed_y *= -1
         if ball.rect.y <= 0:
+            ball.rect.y = 10
             speed_y *= -1
         if sprite.collide_rect(racket1, ball):
             speed_x *= -1
@@ -92,8 +94,8 @@ while run:
                 speed_x = randint(4, 6)*-1
             else:
                 speed_x = randint(4, 6)
-            if speed_y < 0:   
-                speed_y = (8-speed_x)*-1
+            if speed_x < 0:   
+                speed_y = 8-speed_x*-1
             else:
                 speed_y = 8-speed_x
         ball.rect.x += speed_x
