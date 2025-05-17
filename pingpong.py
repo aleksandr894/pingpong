@@ -1,5 +1,6 @@
 #импорт библиотек
 from pygame import *
+font.init()
 
 #Окно игры
 bg_col = (200, 255, 255)
@@ -49,8 +50,13 @@ class Player(GameSprite):
 #ракетки
 racket1 = Player(10, 200, 'racket.png', 4, 50, 150)
 racket2 = Player(540, 200, 'racket.png', 4, 50, 150)
+pl1_lose = False
+pl2_lose = False
 
-#
+delay = 100
+
+#мяч
+ball = GameSprite(275, 225, 'tenis_ball.png', 0, 50, 50)
 speed_x = 3
 speed_y = 3
 
@@ -61,11 +67,42 @@ while run:
             run = False
     if not finish:
         window.fill(bg_col)
+        if ball.rect.y >= 450:
+            speed_y *= -1
+        if ball.rect.y <= 0:
+            speed_y *= -1
+        if sprite.collide_rect(racket1, ball):
+            speed_x *= -1
+        if sprite.collide_rect(racket2, ball):
+            speed_x *= -1
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+        ball.reset()
         racket1.update_l()
         racket2.update_r()
 
         racket1.reset()
         racket2.reset()
+        if ball.rect.x <= 0:
+            finish = True
+            pl1_lose = True
+        if ball.rect.x >= 550:
+            finish = True
+            pl2_lose = True
+    else:
+        if pl1_lose:
+            lose = font.SysFont('Arial', 50).render('player 1 lose', True, (250, 0, 0))
+        elif pl2_lose:
+            lose = font.SysFont('Arial', 50).render('player 2 lose', True, (250, 0, 0))
+        window.blit(lose, (190, 200))
+        delay -= 1
+        if delay == 0:
+            pl1_lose = False
+            pl2_lose = False
+            ball.rect.x = 275
+            ball.rect.y = 225
+            finish = False
+            delay = 60
 
     display.update()
     clock.tick(FPS)
